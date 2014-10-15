@@ -7,6 +7,11 @@ try:
     import json
 except ImportError:
     from django.utils import simplejson as json
+# Python3 unicode compatability
+try:
+    unicode = unicode
+except NameError: # Python3 or no "unicode" support
+    unicode = str
 
 from django import forms
 from django.core.exceptions import ImproperlyConfigured

@@ -51,7 +51,7 @@ class ConfigurationSettings(object):
                 key = raw.key
 
             else:
-                group = self.groups()[raw]
+                group = list(self.groups())[raw]
                 key = group.key
 
             return key

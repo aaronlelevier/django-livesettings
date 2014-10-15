@@ -32,7 +32,6 @@ from hashlib import md5
 from keyedcache.utils import is_string_like, is_list_or_tuple
 from warnings import warn
 import logging
-import types
 try:
     import cPickle as pickle
 except ImportError:
@@ -257,7 +256,7 @@ def cache_get(*keys, **kwargs):
         other kwargs:
             Unknown key=val is interpreted like two aditional keys: (key, val)
     """
-    if kwargs.has_key('default'):
+    if 'default' in kwargs:
         default_value = kwargs.pop('default')
         use_default = True
     else:
@@ -338,7 +337,7 @@ def cache_set(*keys, **kwargs):
             cache_set_request(key, val)
 
 def _hash_or_string(key):
-    if is_string_like(key) or isinstance(key, (types.IntType, types.LongType, types.FloatType)):
+    if is_string_like(key) or isinstance(key, (int, float)):
         return smart_str(key)
     else:
         try:

@@ -1,5 +1,7 @@
 import sys
 import os
+from functools import reduce
+
 
 def can_loop_over(maybe):
     """Test value to see if it is list like"""

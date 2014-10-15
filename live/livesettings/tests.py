@@ -12,21 +12,21 @@ class ConfigurationFunctionTest(TestCase):
     def testSetSingleConfigItem(self):
         value = IntegerValue(BASE_GROUP, 'SingleItem')
         config_register(value)
-        self.assert_(config_exists(BASE_GROUP, 'SingleItem'))
+        self.assertTrue(config_exists(BASE_GROUP, 'SingleItem'))
 
     def testSetTwoConfigItems(self):
         s = [IntegerValue(BASE_GROUP, 'testTwoA'), StringValue(BASE_GROUP, 'testTwoB')]
         config_register_list(*s)
 
-        self.assert_(config_exists(BASE_GROUP, 'testTwoA'))
-        self.assert_(config_exists(BASE_GROUP, 'testTwoB'))
+        self.assertTrue(config_exists(BASE_GROUP, 'testTwoA'))
+        self.assertTrue(config_exists(BASE_GROUP, 'testTwoB'))
 
     def testSetGroup(self):
         g1 = ConfigurationGroup('test1','test1')
         value = IntegerValue(g1, 'SingleGroupedItem')
         config_register(value)
         self.assertFalse(config_exists(BASE_GROUP, 'SingleGroupedItem'))
-        self.assert_(config_exists(g1, 'SingleGroupedItem'))
+        self.assertTrue(config_exists(g1, 'SingleGroupedItem'))
 
 
 class ConfigurationTestSettings(TestCase):
@@ -59,7 +59,7 @@ class ConfigurationTestSettings(TestCase):
         self.assertEqual(c.value, 'test1')
 
         # should be true, since it is an update
-        self.assert_(c.update('test2'))
+        self.assertTrue(c.update('test2'))
         self.assertEqual(c.value, 'test2')
 
     def testTwice(self):
@@ -76,7 +76,7 @@ class ConfigurationTestSettings(TestCase):
         # false because it isn't saving a default value
         self.assertFalse(c.update(10))
 
-        self.assert_(c.update(20))
+        self.assertTrue(c.update(20))
         self.assertEqual(c.value, 20)
         try:
             s = c.setting
@@ -84,7 +84,7 @@ class ConfigurationTestSettings(TestCase):
             self.fail("Should have a setting now")
 
         # now delete and go back to no setting by setting the default
-        self.assert_(c.update(10))
+        self.assertTrue(c.update(10))
         self.assertEqual(c.value, 10)
 
         try:
@@ -106,13 +106,13 @@ class ConfigTestDotAccess(TestCase):
         c2.update(100)
 
     def testDotAccess(self):
-        self.assert_(ConfigurationSettings().test3.s1.value)
+        self.assertTrue(ConfigurationSettings().test3.s1.value)
         self.assertEqual(ConfigurationSettings().test3.s2.value, 100)
 
     def testSettingProperty(self):
         c = config_get('test3','s2')
         s = c.setting
-        self.assert_(s.value, 100)
+        self.assertTrue(s.value, 100)
 
     def testDictValues(self):
         d = self.g.dict_values()
@@ -131,7 +131,7 @@ class ConfigTestModuleValue(TestCase):
         c = config_get('modules', 'test')
         c.update('django')
 
-        self.assert_(hasattr(self.c.value, 'get_version'))
+        self.assertTrue(hasattr(self.c.value, 'get_version'))
 
 class ConfigTestSortOrder(TestCase):
     def setUp(self):
