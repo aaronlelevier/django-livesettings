@@ -10,11 +10,13 @@
 /media
 build
 .build
+_build
+_static
+_templates
 *.orig
 *.rej
 *~
 *.o
-*.pyo
 _private
 *_local.py
 _LOCAL_FLAG
@@ -30,3 +32,4 @@ local_bursar_*py
 .tox
 .coverage
 htmlcov
+setuptools_hg-*
